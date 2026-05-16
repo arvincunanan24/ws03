@@ -1,0 +1,203 @@
+/* ============================================================
+   JOBSEEK — CUSTOM STYLESHEET
+   Pangalan ng Student: ______________________________
+   Theme Name:          ______________________________ // Anong style would best describe this stylesheet
+   ============================================================ */
+
+/* --- Google Fonts Import (optional) ---
+   Pumunta sa https://fonts.google.com, pumili ng font,
+   i-copy ang @import link, i-paste dito.
+
+   Halimbawa:
+   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+*/
+
+
+
+
+/* ----------------------------------------------------------------
+   SECTION 1: MGA KULAY (Colors)
+   ----------------------------------------------------------------
+   Palitan ang bawat hex code ng kulay na gusto mo.
+   Tip: https://coolors.co — para pumili ng color palette
+        https://htmlcolorcodes.com — para makita ang hex codes
+   ---------------------------------------------------------------- */
+
+:root {
+  /* Grayscale & Amber Brand Colors */
+  --color-header:       #616161;   /* Dark Primary: Seryoso at neutral na kulay para sa Navbar */
+  --color-accent:       #FFC107;   /* Amber: Main color para sa "Post a Job" at mahahalagang buttons */
+  
+  /* Backgrounds */
+  --color-page-bg:      #F5F5F5;   /* Light Primary: Napakagaan na grey, perfect na background */
+  --color-card-bg:      #FFFFFF;   /* White: Para lumitaw ang data sa loob ng cards */
+  
+  /* Typography & Fonts */
+  --color-heading:      #212121;   /* Primary Text: Deep grey para sa malinaw na titles */
+  --color-body-text:    #212121;   /* Secondary Text: Para sa descriptions at sub-details */
+  --color-link:         #616161;   /* Dark Primary: Consistent sa brand color ng navbar */
+  
+  /* Tags & UI Elements */
+  --color-tag-bg:       #BDBDBD;   /* Divider Color: Ginamit bilang subtle background para sa badges */
+  --color-tag-text:     #212121;   /* Primary Text: Para madaling basahin ang label sa tags */
+  
+  /* Footer & Overlays */
+  --color-footer:       #212121;   /* Text/Icons Color: Solid dark footer */
+  --showcase-overlay:   rgba(33, 33, 33, 0.5); /* Dark Grey Overlay: Para sa hero banners */
+}
+
+
+/* ----------------------------------------------------------------
+   SECTION 2: MGA FONT (Typography)
+   ----------------------------------------------------------------
+   Palitan ng font name na gusto mo.
+   Kung gagamit ng Google Font, i-import muna sa taas ng file.
+
+   Halimbawa ng built-in fonts (hindi na kailangan ng import):
+     'Georgia', serif
+     'Arial', sans-serif
+     'Verdana', sans-serif
+     'Times New Roman', serif
+     'Courier New', monospace
+   ---------------------------------------------------------------- */
+
+
+
+
+/* ----------------------------------------------------------------
+   SECTION 3: HUGIS AT ESTILO (Shape & Style)
+   ----------------------------------------------------------------
+   --border-radius:
+     0px      = matuwid / sharp corners
+     4px      = konting rounding
+     8px      = medyo rounded
+     16px     = malakas na rounding
+     9999px   = pill shape / fully round
+
+   --card-shadow:
+     none                           = walang shadow
+     0 2px 8px rgba(0,0,0,0.08)    = mahinang shadow
+     0 4px 16px rgba(0,0,0,0.20)   = malakas na shadow
+   ---------------------------------------------------------------- */
+
+:root {
+  --border-radius: 8px;
+  --card-shadow:   0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+
+
+
+/* ================================================================
+   === HUWAG I-EDIT ANG SECTION NA ITO (unless gusto mong advanced!) ===
+   === Ito ang code na gumagamit ng iyong mga variables sa itaas.  ===
+   ================================================================ */
+
+body {
+  font-family: var(--font-body) !important;
+  background-color: var(--color-page-bg) !important;
+  color: var(--color-body-text) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading) !important;
+  color: var(--color-heading) !important;
+}
+
+a {
+  color: var(--color-link) !important;
+}
+
+header {
+  background-color: var(--color-header) !important;
+}
+
+.bg-blue-900,
+.bg-blue-800 {
+  background-color: var(--color-header) !important;
+}
+
+.bg-yellow-500 {
+  background-color: var(--color-accent) !important;
+}
+
+.text-yellow-500 {
+  color: var(--color-accent) !important;
+}
+
+.hover\:bg-yellow-600:hover {
+  background-color: var(--color-accent) !important;
+  filter: brightness(0.88);
+}
+
+.bg-yellow-500, 
+.bg-blue-500,
+.bg-green-500 {
+  background-color: var(--color-accent) !important;
+  color: #000000 !important;
+}
+
+.bg-white {
+  background-color: var(--color-card-bg) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: var(--card-shadow) !important;
+}
+
+.bg-indigo-100 {
+  background-color: var(--color-tag-bg) !important;
+}
+
+.text-indigo-700,
+.text-indigo-800 {
+  color: var(--color-tag-text) !important;
+}
+
+.text-blue-700,
+.text-blue-500,
+.text-blue-900 {
+  color: var(--color-link) !important;
+}
+
+button,
+.rounded,
+.rounded-lg,
+.rounded-full {
+  border-radius: var(--border-radius) !important;
+}
+
+.overlay {
+  background-color: var(--showcase-overlay) !important;
+}
+
+footer,
+.bg-indigo-900 {
+  background-color: var(--color-footer) !important;
+}
+
+.bg-gray-100 {
+  background-color: var(--color-page-bg) !important;
+}
+
+
+/* ----------------------------------------------------------------
+   ADVANCED ZONE — Para sa gustong mag-explore pa!
+   ----------------------------------------------------------------
+   Alisin ang /* at */ para i-activate ang isang rule.
+   /* ---------------------------------------------------------------- */
+
+/* Hover effect sa mga link */
+/* a:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+} */
+
+/* Kulay ng input fields */
+/* input, select, textarea {
+  border-color: var(--color-link) !important;
+  border-radius: var(--border-radius) !important;
+} */
+
+/* Kulay ng success badge */
+/* .bg-green-100 { background-color: #d1fae5 !important; }
+   .text-green-800 { color: #065f46 !important; } */
+

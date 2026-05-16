@@ -1,0 +1,15 @@
+# Dependencies
+/vendor
+/node_modules
+
+# Sensitive config files
+/config/db.php
+.env
+
+# Editor folders
+.vscode
+
+# OS junk files
+Thumbs.db
+Desktop.ini
+
