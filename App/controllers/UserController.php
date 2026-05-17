@@ -12,21 +12,14 @@ class UserController
 
     public function __construct()
     {
-        // Hardcoded database connection array para maiwasan ang dependency error sa config/db.php
-        $config = [
-            'host'     => 'localhost',
-            'port'     => '3306',
-            'dbname'   => 'ws03',
-            'username' => 'root',
-            'password' => ''
-        ];
-
+        $config = require basePath('config/db.php');
         $this->db = new Database($config);
     }
 
     /**
      * Show Login Page
-     * * @return void
+     * 
+     * @return void
      */
     public function login()
     {
@@ -35,7 +28,8 @@ class UserController
 
     /**
      * Show Create Page
-     * * @return void
+     * 
+     * @return void
      */
     public function create()
     {
@@ -44,15 +38,16 @@ class UserController
 
     /**
      * Store user to db
-     * * @return void
+     * 
+     * @return void
      */
     public function store()
     {
-        $name = $_POST['name'] ?? '';
-        $email = $_POST['email'] ?? '';
-        $city = $_POST['city'] ?? '';
-        $state = $_POST['state'] ?? '';
-        $password = $_POST['password'] ?? '';
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $city = $_POST['city'];
+        $state = $_POST['state'];
+        $password = $_POST['password'];
         $passwordConfirmation = $_POST['passwordConfirmation'] ?? '';
 
         $errors = [];
@@ -65,9 +60,8 @@ class UserController
             $errors['name'] = 'Name must be 2-50 characters.';
         }
 
-        // INAYOS: Binabaan sa 3 characters ang limit para mas mabilis mag-test ng registration at login
-        if (!Validation::string($password, 3, 50)) {
-            $errors['password'] = 'Password must be at least 3 characters.';
+        if (!Validation::string($password, 8, 50)) {
+            $errors['password'] = 'Password must be at least 8 characters.';
         }
 
         if (!Validation::match($password, $passwordConfirmation)) {
@@ -113,9 +107,8 @@ class UserController
 
         $this->db->query('INSERT INTO users (name, email, city, state, password) VALUES (:name, :email, :city, :state, :password)', $params);
 
-        // INAYOS: Kinuha ang kakapasok lang na User gamit ang Email para makuha ang totoong ID mula sa database system
-        $newUser = $this->db->query('SELECT id FROM users WHERE email = :email', ['email' => $email])->fetch();
-        $userid = $newUser ? $newUser->id : 1;
+        // Get new user id
+        $userid = $this->db->conn->lastInsertId();
 
         // Set user id in session
         Session::set('user', [
@@ -131,7 +124,8 @@ class UserController
 
     /**
      * Logout a user and kill session
-     * * @return void
+     * 
+     * @return void
      */
     public function logout()
     {
@@ -143,12 +137,13 @@ class UserController
 
     /**
      * Authenticate user with email and password
-     * * @return void
+     * 
+     * @return void
      */
     public function authenticate()
     {
-        $email = $_POST['email'] ?? '';
-        $password = $_POST['password'] ?? '';
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
         $errors = [];
 
@@ -157,9 +152,8 @@ class UserController
             $errors['email'] = 'Please enter a valid email address.';
         }
 
-        // INAYOS: Binabaan sa 3 characters para tumugma sa registration security limit natin
-        if (!Validation::string($password, 3, 50)) {
-            $errors['password'] = 'Password must be at least 3 characters.';
+        if (!Validation::string($password, 8, 50)) {
+            $errors['password'] = 'Password must be at least 8 characters.';
         }
 
         // Check for errors

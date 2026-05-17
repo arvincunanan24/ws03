@@ -5,10 +5,13 @@
 
 <section>
     <div class="container mx-auto p-4 mt-4">
-        <div class="text-center text-3xl mb-4 font-bold border border-gray-300 p-3">Recent Jobs</div>
+        <div class="text-center text-3xl mb-4 font-bold border border-gray-300 p-3">
+            <span style="color: #000000 !important;">Recent Jobs</span>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <?php foreach ($listings as $listing): ?>
-                <div class="rounded-lg shadow-md bg-white">
+                <div class="rounded-lg shadow-[0_10px_25px_rgba(0,0,0,0.15)] hover:shadow-[0_15px_35px_rgba(0,0,0,0.25)] transition-all duration-300 bg-white">
                     <div class="p-4">
                         <h2 class="text-xl font-semibold"><?= $listing->title ?></h2>
                         <p class="text-gray-700 text-lg mt-2">
@@ -34,7 +37,8 @@
                 </div>
             <?php endforeach; ?>
         </div>
-        <a href="listings" class="btn-primary-action block text-xl text-center px-8 py-4 rounded shadow-md">
+
+        <a href="listings" class="btn-primary-action block text-xl text-center px-8 py-4 rounded shadow-md hover:opacity-80 hover:shadow-lg transition duration-200" style="color: #000000 !important;">
             <i class="fa fa-arrow-alt-circle-right mr-2"></i>
             Show All Jobs
         </a>

@@ -13,43 +13,22 @@ class ListingController
 
     public function __construct()
     {
-        // Configuration array para sa direktang koneksyon sa database ng Laragon
-        $config = [
-            'host'     => 'localhost',
-            'port'     => '3306',
-            'dbname'   => 'ws03',
-            'username' => 'root',
-            'password' => ''
-        ];
-
+        $config = require basePath('config/db.php');
         $this->db = new Database($config);
     }
 
-    /**
-     * Display all listings
-     * * @return void
-     */
     public function index()
     {
-        $listings = $this->db->query('SELECT * FROM listings ORDER BY created_at DESC')->fetchAll();
+        $listings = $this->db->query('SELECT * FROM listings ORDER BY created_at DESC')->fetchALL();
 
         loadView('listings/index', ['listings' => $listings]);
     }
 
-    /**
-     * Show the create listing form
-     * * @return void
-     */
     public function create()
     {
         loadView('listings/create');
     }
 
-    /**
-     * Show a specific listing details
-     * * @param array $params
-     * @return void
-     */
     public function show($params)
     {
         $id = $params['id'] ?? '';
@@ -72,7 +51,8 @@ class ListingController
 
     /**
      * Store data in database
-     * * @return void
+     * 
+     * @return void
      */
     public function store()
     {
@@ -93,9 +73,7 @@ class ListingController
 
         $newListingData = array_intersect_key($_POST, array_flip($allowedFields));
 
-        // Safe fallback check para hindi mag-null ang user_id kapag nag-te-test habang naka-logout
-        $userSession = Session::get('user');
-        $newListingData['user_id'] = isset($userSession['id']) ? $userSession['id'] : 1;
+        $newListingData['user_id'] = Session::get('user')['id'];
 
         $newListingData = array_map('sanitize', $newListingData);
 
@@ -123,19 +101,22 @@ class ListingController
                 'listing' => $newListingData
             ]);
         } else {
+            // Submit Data
+            // $this->db->query('INSERT INTO listings(title, description, salary, tags, company, address, city, state, phone, email, requirements, benefits, user_id) VALUES (:title, :description, :salary, :tags, :company, :address, :city, :state, :phone, :email, :requirements, :benefits, :user_id)', $newListingData);
+
             $fields = [];
 
-            foreach ($newListingData as $field => $val) {
+            foreach ($newListingData as $field => $value) {
                 $fields[] = $field;
             }
 
             $fields = implode(', ', $fields);
 
-            $values = []; 
+            $value = [];
 
-            foreach ($newListingData as $field => $val) {
+            foreach ($newListingData as $field => $value) {
                 // Convert empty strings to null
-                if ($val === '') {
+                if ($value === '') {
                     $newListingData[$field] = null;
                 }
                 $values[] = ':' . $field;
@@ -146,8 +127,7 @@ class ListingController
 
             $this->db->query($query, $newListingData);
 
-            // TINAMAAN: Binago patungong Session::set mula sa dating setFlashMessage para hindi mag-error
-            Session::set('success_message', 'Listing created successfully');
+            Session::setFlashMessage('success_message', 'Listing created successfully');
 
             redirect('/listings');
         }
@@ -155,7 +135,8 @@ class ListingController
 
     /**
      * Delete a listing
-     * * @param array $params
+     * 
+     * @param array $params
      * @return void
      */
     public function destroy($params)
@@ -170,29 +151,24 @@ class ListingController
 
         // Check if listing exist
         if (!$listing) {
-            ErrorController::notFound('Listing not found');
+            ErrorController::notFound('LIsting not found');
             return;
         }
 
-        // Authorization check
+        //Authorization
         if (!Authorization::isOwner($listing->user_id)) {
-            Session::set('error_message', 'You are not authorized to delete this listing');
+            Session::setFlashMessage('error_message', 'Unauthorized action');
             return redirect('/listings/' . $listing->id);
         }
 
         $this->db->query('DELETE FROM listings WHERE id = :id', $params);
 
-        // TINAMAAN: Binago mula sa setFlashMessage patungong Session::set
-        Session::set('success_message', 'Listing deleted successfully');
+        //Set flash message
+        Session::setFlashMessage('success_message', 'Listing deleted successfully');
 
         redirect('/listings');
     }
 
-    /**
-     * Show the edit listing form
-     * * @param array $params
-     * @return void
-     */
     public function edit($params)
     {
         $id = $params['id'] ?? '';
@@ -208,9 +184,9 @@ class ListingController
             return;
         }
 
-        // Authorization check
+        //Authorization
         if (!Authorization::isOwner($listing->user_id)) {
-            Session::set('error_message', 'You are not authorized to update this listing');
+            Session::setFlashMessage('error_message', 'Unauthorized action');
             return redirect('/listings/' . $listing->id);
         }
 
@@ -221,8 +197,9 @@ class ListingController
 
     /**
      * Update listing
-     * * @param array $params
-     * @return void
+     * 
+     * @param array $params
+     * @return variant
      */
     public function update($params)
     {
@@ -239,9 +216,9 @@ class ListingController
             return;
         }
 
-        // Authorization check
+        //Authorization
         if (!Authorization::isOwner($listing->user_id)) {
-            Session::set('error_message', 'You are not authorized to update this listing');
+            Session::setFlashMessage('error_message', 'Unauthorized action');
             return redirect('/listings/' . $listing->id);
         }
 
@@ -260,7 +237,10 @@ class ListingController
             'benefits'
         ];
 
+        $updateValues = [];
+
         $updateValues = array_intersect_key($_POST, array_flip($allowedFields));
+
         $updateValues = array_map('sanitize', $updateValues);
 
         $requiredFields = [
@@ -281,9 +261,8 @@ class ListingController
         }
 
         if (!empty($errors)) {
-            $updateValues['id'] = $id;
             loadView('listings/edit', [
-                'listing' => (object)$updateValues,
+                'listing' => $listing,
                 'errors' => $errors
             ]);
             exit;
@@ -292,9 +271,6 @@ class ListingController
             $updateFields = [];
 
             foreach (array_keys($updateValues) as $field) {
-                if ($updateValues[$field] === '') {
-                    $updateValues[$field] = null;
-                }
                 $updateFields[] = "{$field} = :{$field}";
             }
 
@@ -306,23 +282,23 @@ class ListingController
 
             $this->db->query($updateQuery, $updateValues);
 
-            // TINAMAAN: Binago mula sa setFlashMessage patungong Session::set
-            Session::set('success_message', 'Listing updated successfully');
+            Session::setFlashMessage('success_message', 'Listing updated successfully');
 
             redirect('/listings/' . $id);
         }
     }
 
     /**
-     * Search listings by keyword and location
-     * * @return void
+     * Search listings by keyword/location
+     * 
+     * @return void
      */
     public function search()
     {
         $keywords = isset($_GET['keywords']) ? trim($_GET['keywords']) : '';
         $location = isset($_GET['location']) ? trim($_GET['location']) : '';
 
-        $query = "SELECT * FROM listings WHERE (title LIKE :keywords OR description LIKE :keywords OR tags LIKE :keywords OR company LIKE :keywords) AND (city LIKE :location OR state LIKE :location)";
+        $query = 'SELECT * FROM listings WHERE (title LIKE :keywords OR description LIKE :keywords OR tags LIKE :keywords OR company LIKE :keywords) AND (city LIKE :location OR state LIKE :location)';
 
         $params = [
             'keywords' => "%{$keywords}%",
@@ -331,7 +307,7 @@ class ListingController
 
         $listings = $this->db->query($query, $params)->fetchAll();
 
-        loadView('listings/index', [
+        loadView('/listings/index', [
             'listings' => $listings,
             'keywords' => $keywords,
             'location' => $location

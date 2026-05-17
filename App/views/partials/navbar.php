@@ -7,7 +7,7 @@ use Framework\Session;
 <header class="bg-blue-900 text-white p-4">
     <div class="container mx-auto flex justify-between items-center">
         <h1 class="text-3xl font-semibold">
-            <a href="/" class="flex items-center gap-2">
+            <a href="/" class="flex items-center gap-2 text-white hover:text-gray-200 transition duration-200">
                 <span>JobSeek</span>
             </a>
         </h1>

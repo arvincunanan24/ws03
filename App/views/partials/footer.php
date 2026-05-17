@@ -1,11 +1,12 @@
 <footer class="bg-[#1a1a1a] text-white mt-20 py-10">
     <div class="container mx-auto px-4 text-center">
 
-        <h3 class="text-2xl font-black tracking-widest uppercase">
+        <h3 class="text-2xl font-black tracking-widest uppercase" style="color: #ffffff !important;">
             Jobseek
         </h3>
 
-        <p class="text-gray-500 text-xs mt-2 tracking-wide">
+
+        <p class="text-xs mt-2 tracking-wide" style="color: #cbd5e1 !important;">
             Connecting talent with opportunity since 2026.
         </p>
 
@@ -23,3 +24,8 @@
 
     </div>
 </footer>
+
+
+<p class="text-xs mt-2 tracking-wide" style="color: #cbd5e1 !important;">
+    Connecting talent with opportunity since 2026.
+</p>

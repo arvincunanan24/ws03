@@ -10,14 +10,13 @@ class HomeController
 
     public function __construct()
     {
-        // Siguraduhing maayos ang pagkakabukas at sara ng array gamit ang [ at ]
         $config = [
             'host'     => 'localhost',
             'port'     => '3306',
             'dbname'   => 'ws03',
             'username' => 'root',
             'password' => ''
-        ]; // <-- Siguraduhing may kulot na bracket at semicolon dito!
+        ];
 
         $this->db = new Database($config);
     }

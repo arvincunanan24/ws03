@@ -25,16 +25,16 @@
 
 :root {
   /* Grayscale & Amber Brand Colors */
-  --color-header:       #616161;   /* Dark Primary: Seryoso at neutral na kulay para sa Navbar */
+  --color-header:       #303F9F;   /* Dark Primary: Seryoso at neutral na kulay para sa Navbar */
   --color-accent:       #FFC107;   /* Amber: Main color para sa "Post a Job" at mahahalagang buttons */
   
   /* Backgrounds */
-  --color-page-bg:      #F5F5F5;   /* Light Primary: Napakagaan na grey, perfect na background */
+  --color-page-bg:      #C5CAE9;   /* Light Primary: Napakagaan na grey, perfect na background */
   --color-card-bg:      #FFFFFF;   /* White: Para lumitaw ang data sa loob ng cards */
   
   /* Typography & Fonts */
   --color-heading:      #212121;   /* Primary Text: Deep grey para sa malinaw na titles */
-  --color-body-text:    #212121;   /* Secondary Text: Para sa descriptions at sub-details */
+  --color-body-text:    #757575;   /* Secondary Text: Para sa descriptions at sub-details */
   /*--color-link:         #616161;   /* Dark Primary: Consistent sa brand color ng navbar */
   
   /* Tags & UI Elements */
@@ -42,10 +42,9 @@
   --color-tag-text:     #212121;   /* Primary Text: Para madaling basahin ang label sa tags */
   
   /* Footer & Overlays */
-  --color-footer:       #212121;   /* Text/Icons Color: Solid dark footer */
+  --color-footer:       #303F9F;   /* Text/Icons Color: Solid dark footer */
   --showcase-overlay:   rgba(33, 33, 33, 0.5); /* Dark Grey Overlay: Para sa hero banners */
 }
-
 
 /* ----------------------------------------------------------------
    SECTION 2: MGA FONT (Typography)

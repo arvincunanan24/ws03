@@ -1,22 +1,17 @@
-<?= loadPartial('head') ?>
-<?= loadPartial('navbar') ?>
-<?= loadPartial('top-banner') ?>
+<?= loadPartial('head'); ?>
+<?= loadPartial('navbar'); ?>
+<?= loadPartial('showcase-search'); ?>
+<?= loadPartial('top-banner'); ?>
 
-<!-- Job Listings -->
-<section>
+<section class="container mx-auto px-4 md:px-8 my-6">
     <div class="container mx-auto p-4 mt-4">
         <div class="text-center text-3xl mb-4 font-bold border border-gray-300 p-3">
-        <?php if(isset($keywords)):?>
-            Search Results for: <? = htmlspecialchars($keywords) ?>
-        <?php else :?>
-        All Jobs
-        <?php endif; ?>
+            <span style="color: #000000 !important;">Recent Jobs</span>
         </div>
-        <?= loadPartial('message') ?>
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <?php foreach ($listings as $listing): ?>
-                <!-- Job Listing 1: Software Engineer -->
-                <div class="rounded-lg shadow-md bg-white">
+                <div class="rounded-lg shadow-[0_10px_25px_rgba(0,0,0,0.15)] hover:shadow-[0_15px_35px_rgba(0,0,0,0.25)] transition-all duration-300 bg-white">
                     <div class="p-4">
                         <h2 class="text-xl font-semibold"><?= $listing->title ?></h2>
                         <p class="text-gray-700 text-lg mt-2">
@@ -25,9 +20,8 @@
                         <ul class="my-4 bg-gray-100 p-4 rounded">
                             <li class="mb-2"><strong>Salary: </strong><?= formatSalary($listing->salary) ?></li>
                             <li class="mb-2">
-                                <strong>Location:</strong><?= $listing->city ?>, <?= $listing->state ?>
-                                <span
-                                    class="text-xs bg-blue-500 text-white rounded-full px-2 py-1 ml-2">Local</span>
+                                <strong>Location:</strong> <?= $listing->city ?>, <?= $listing->state ?>
+                                <span class="text-xs bg-blue-500 text-white rounded-full px-2 py-1 ml-2">Local</span>
                             </li>
                             <?php if (!empty($listing->tags)) : ?>
                                 <li class="mb-2">
@@ -43,7 +37,17 @@
                 </div>
             <?php endforeach; ?>
         </div>
+
+        <a href="listings" class="btn-primary-action block text-xl text-center px-8 py-4 rounded shadow-md hover:opacity-80 hover:shadow-lg transition duration-200" style="color: #000000 !important;">
+            <i class="fa fa-arrow-alt-circle-right mr-2"></i>
+            Show All Jobs
+        </a>
+    </div>
 </section>
 
-<?= loadPartial('bottom-banner') ?>
-<?= loadPartial('footer') ?>
+<div class="container mx-auto px-4 md:px-8 mb-10">
+    <?= loadPartial('bottom-banner'); ?>
+</div>
+
+<?= loadPartial('footer'); ?>
+
