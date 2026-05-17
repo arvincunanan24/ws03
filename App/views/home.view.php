@@ -3,13 +3,11 @@
 <?= loadPartial('showcase-search'); ?>
 <?= loadPartial('top-banner'); ?>
 
-<!-- Job Listings -->
 <section>
     <div class="container mx-auto p-4 mt-4">
         <div class="text-center text-3xl mb-4 font-bold border border-gray-300 p-3">Recent Jobs</div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <?php foreach ($listings as $listing): ?>
-                <!-- Job Listing 1: Software Engineer -->
                 <div class="rounded-lg shadow-md bg-white">
                     <div class="p-4">
                         <h2 class="text-xl font-semibold"><?= $listing->title ?></h2>
@@ -19,9 +17,8 @@
                         <ul class="my-4 bg-gray-100 p-4 rounded">
                             <li class="mb-2"><strong>Salary: </strong><?= formatSalary($listing->salary) ?></li>
                             <li class="mb-2">
-                                <strong>Location:</strong><?= $listing->city ?>, <?= $listing->state ?>
-                                <span
-                                    class="text-xs bg-blue-500 text-white rounded-full px-2 py-1 ml-2">Local</span>
+                                <strong>Location:</strong> <?= $listing->city ?>, <?= $listing->state ?>
+                                <span class="text-xs bg-blue-500 text-white rounded-full px-2 py-1 ml-2">Local</span>
                             </li>
                             <?php if (!empty($listing->tags)) : ?>
                                 <li class="mb-2">
@@ -41,6 +38,7 @@
             <i class="fa fa-arrow-alt-circle-right mr-2"></i>
             Show All Jobs
         </a>
+    </div>
 </section>
 
 <?= loadPartial('bottom-banner'); ?>

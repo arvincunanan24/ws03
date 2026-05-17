@@ -35,7 +35,7 @@
   /* Typography & Fonts */
   --color-heading:      #212121;   /* Primary Text: Deep grey para sa malinaw na titles */
   --color-body-text:    #212121;   /* Secondary Text: Para sa descriptions at sub-details */
-  --color-link:         #616161;   /* Dark Primary: Consistent sa brand color ng navbar */
+  /*--color-link:         #616161;   /* Dark Primary: Consistent sa brand color ng navbar */
   
   /* Tags & UI Elements */
   --color-tag-bg:       #BDBDBD;   /* Divider Color: Ginamit bilang subtle background para sa badges */
@@ -102,10 +102,6 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading) !important;
   color: var(--color-heading) !important;
-}
-
-a {
-  color: var(--color-link) !important;
 }
 
 header {
@@ -178,6 +174,9 @@ footer,
   background-color: var(--color-page-bg) !important;
 }
 
+a.header-text {
+  color: #FFFFFF !important;
+}
 
 /* ----------------------------------------------------------------
    ADVANCED ZONE — Para sa gustong mag-explore pa!

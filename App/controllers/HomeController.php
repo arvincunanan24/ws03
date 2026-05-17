@@ -10,13 +10,21 @@ class HomeController
 
     public function __construct()
     {
-        $config = require basePath('config/db.php');
+        // Siguraduhing maayos ang pagkakabukas at sara ng array gamit ang [ at ]
+        $config = [
+            'host'     => 'localhost',
+            'port'     => '3306',
+            'dbname'   => 'ws03',
+            'username' => 'root',
+            'password' => ''
+        ]; // <-- Siguraduhing may kulot na bracket at semicolon dito!
+
         $this->db = new Database($config);
     }
 
     public function index()
     {
-        $listings = $this->db->query('SELECT * FROM listings LIMIT 6')->fetchALL();
+        $listings = $this->db->query('SELECT * FROM listings ORDER BY created_at DESC LIMIT 6')->fetchAll();
 
         loadView('home', ['listings' => $listings]);
     }
